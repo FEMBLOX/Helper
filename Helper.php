@@ -5,7 +5,7 @@
 
 namespace FEMBLOX;
 
-class FEMBLOX {
+class Helper {
     public function filter(int $type, string $var, int $filter) { // This is a safer filter because it also strips tags and takes time off typing!
         return (string)strip_tags(filter_input($type, $var, $filter));
     }
@@ -39,6 +39,10 @@ class FEMBLOX {
             // the very shitty session code but it works jwt for the win ig??
             setcookie(".ROBLOSECURITY", "|WARNING_DO_NOT_SHARE|".$secure, time() + (36400 * 365), "/");
         }
+    }
+
+    public function filterGender($v) {
+        return $v == "Male" || $v == "Female";
     }
 }
 
