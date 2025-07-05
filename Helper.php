@@ -43,19 +43,20 @@ class Helper {
         }
     }
 
-    public function filterGender($v) {
-        return $v == "Male" || $v == "Female";
+    public function filterGender($v) { // i.e. this filters on register but i might make it validate gender for security ?
+        return $v == "Male" || $v == "Female"; // self explanitory
     }
 
-    public function getUserData($ID) {
-        $db = DB::getInstance();
+    public function getUserData($ID) { // get user column from id
+        $db = DB::getInstance(); // https://github.com/FEMBLOX/Helper/blob/main/DB.php
 
+        // this $result returns the entire column using FETCH_ASSOC
         $result = $db->run("SELECT * FROM Users WHERE ID = :id", [":id" => $ID])->fetch(\PDO::FETCH_ASSOC);
-        
-        $result["Password"] = null;
-        $result["IP"] = null;
 
-        return $result;
+        $result["Password"] = null; // null out important info
+        $result["IP"] = null; // probably dont need to null ip but just in case..
+
+        return $result; // easy.
     }
 }
 
