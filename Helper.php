@@ -5,6 +5,8 @@
 
 namespace FEMBLOX;
 
+use FEMBLOX\DB;
+
 class Helper {
     public function filter(int $type, string $var, int $filter) { // This is a safer filter because it also strips tags and takes time off typing!
         return (string)strip_tags(filter_input($type, $var, $filter));
@@ -43,6 +45,17 @@ class Helper {
 
     public function filterGender($v) {
         return $v == "Male" || $v == "Female";
+    }
+
+    public function getUserData($ID) {
+        $db = DB::getInstance();
+
+        $result = $db->run("SELECT * FROM Users WHERE ID = :id", [":id" => $ID])->fetch(\PDO::FETCH_ASSOC);
+        
+        $result["Password"] = null;
+        $result["IP"] = null;
+
+        return $result;
     }
 }
 
